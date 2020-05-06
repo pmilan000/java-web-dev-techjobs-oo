@@ -6,5 +6,8 @@ import static org.junit.Assert.assertEquals;
 public class JobTest {
 
     @Test
+    public void testSettingJobId() {
+
+    }
 
 }
