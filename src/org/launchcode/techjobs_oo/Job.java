@@ -18,12 +18,12 @@ public class Job {
     //  the 'id' field.
 
     public Job() {
-        id = nextId;
+        this.id = nextId;
         nextId++;
     }
 
-    public Job(int id, String name, Employer employer, Location location, PositionType positionType, CoreCompetency coreCompetency) {
-        super();
+    public Job(String name, Employer employer, Location location, PositionType positionType, CoreCompetency coreCompetency) {
+        this();
         this.name = name;
         this.employer = employer;
         this.location = location;
@@ -40,17 +40,17 @@ public class Job {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Job job = (Job) o;
-        return id == job.id &&
-                Objects.equals(name, job.name) &&
-                Objects.equals(employer, job.employer) &&
-                Objects.equals(location, job.location) &&
-                Objects.equals(positionType, job.positionType) &&
-                Objects.equals(coreCompetency, job.coreCompetency);
+        return id == job.id;
+
+    }
+
+    public static void resetNextId(){
+        nextId = 1;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, employer, location, positionType, coreCompetency);
+        return Objects.hash(id);
     }
 
 
@@ -58,8 +58,8 @@ public class Job {
     //  and id.
 
 
-    public void setId(int id) {
-        this.id = id;
+    public int getId() {
+        return id;
     }
 
     public String getName() {
@@ -95,5 +95,20 @@ public class Job {
     }
     public void setCoreCompetency(CoreCompetency coreCompetency) {
         this.coreCompetency = coreCompetency;
+    }
+
+    @Override
+    public String toString() {
+        String employer = this.getEmployer().getValue().equals("") ? "Data not available" : this.getEmployer().getValue();
+        String location = this.getLocation().getValue().equals("") ? "Data not available" : this.getLocation().getValue();
+        String positionType = this.getPositionType().getValue().equals("") ? "Data not available" : this.getPositionType().getValue();
+        String coreCompetency = this.getCoreCompetency().getValue().equals("") ? "Data not available" : this.getCoreCompetency().getValue();
+
+        return "\nID: " + this.getId() + "\n" +
+                "Name: " + this.getName() + "\n" +
+                "Employer: " + employer + "\n" +
+                "Location: " + location + "\n" +
+                "Position Type: " + positionType + "\n" +
+                "Core Competency: " + coreCompetency + "\n";
     }
 }
