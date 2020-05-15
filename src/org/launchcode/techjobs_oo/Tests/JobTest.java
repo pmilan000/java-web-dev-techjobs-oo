@@ -14,7 +14,6 @@ public class JobTest {
         job2 = new Job();
         job3 = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
         job4 = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
-
     }
 
     @After
@@ -41,6 +40,29 @@ public class JobTest {
     @Test
     public void testJobsForEquality() {
         assertFalse(job3.equals(job4));
+    }
+
+    @Test
+    public void testToStringBeginsEndsWithNewLine() {
+        char firstChar = job3.toString().charAt(0);
+        char lastChar = job3.toString().charAt(job3.toString().length()-1);
+        assertTrue(firstChar == lastChar);
+    }
+
+    @Test
+    public void testNoData() {
+         job3.getEmployer().setValue("");
+         job3.getLocation().setValue("");
+         job3.getPositionType().setValue("");
+         job3.getCoreCompetency().setValue("");
+        String output = "\nID: " + job3.getId() + "\n" +
+                "Name: " + job3.getName() + "\n" +
+                "Employer: Data not available\n" +
+                "Location: Data not available\n" +
+                "Position Type: Data not available\n" +
+                "Core Competency: Data not available\n";
+        assertEquals(output, job3.toString());
+
     }
 
     @Test
